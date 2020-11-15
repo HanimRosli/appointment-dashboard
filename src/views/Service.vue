@@ -16,7 +16,7 @@
                     </b-card-text>
                 </b-tab>
                 <div class="row">
-                    <b-table v-for="(service)" in services striped hover :items="services" :fields="fields"></b-table>
+                    <b-table v-for="(service) in services" striped hover :items="services" :fields="fields"></b-table>
                 </div>
                 <b-tab title="Staff">
                     <b-card-text>Tab contents 2</b-card-text>
