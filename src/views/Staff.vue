@@ -3,26 +3,27 @@
     <div class="row justify-content-md-center">
         <div class="col-4 p-5">
             <div class="row justify-content-between align-items-center">
-                <h3 class="mb-0">List of Users</h3>
-                <b-button variant="success" @click="onClickAdd">Add User</b-button>
+                <h3 class="mb-0">List of Staffs</h3>
+                <b-button variant="success" @click="onClickAdd">Add Staff</b-button>
             </div>
         </div>
     </div>
     <div class="row">
-        <b-card v-for="(user) in users" :key="user.id" :username="user.username" class="col-12 mb-3">
-            {{user.fullname}}
-            {{user.email}}
-            {{user.contact}}
-            {{user.address}}
-            {{user.skinConcern}}
+        <b-card v-for="(staff) in staffs" :key="staff.id" class="col-12 mb-3">
+            {{staff.username}}
+            {{staff.fullname}}
+            {{staff.email}}
+            {{staff.contact}}
+            {{staff.address}}
+            {{staff.position}}
 
-            <b-btn variant="danger" @click="onHandleClickDelete(user.id)">Delete</b-btn>
-            <b-btn variant="info" @click="onHandleClickUpdate(user)">Update</b-btn>
+            <b-btn variant="danger" @click="onHandleClickDelete(staff.id)">Delete</b-btn>
+            <b-btn variant="info" @click="onHandleClickUpdate(staff)">Update</b-btn>
 
         </b-card>
     </div>
 
-    <b-modal id="modal-add-user" title="Add User" @hidden="onHandleCancel">
+    <b-modal id="modal-add-staff" title="Add Staff" @hidden="onHandleCancel">
         <b-form>
             <b-form-group label="Username:">
                 <b-form-input v-model="form.username" placeholder="Add username"></b-form-input>
@@ -44,8 +45,15 @@
                 <b-form-textarea id="textarea" v-model="form.address" placeholder="Enter address" rows="3" max-rows="6"></b-form-textarea>
             </b-form-group>
 
-            <b-form-group label="Skin Concern:">
-                <b-form-input v-model="form.skinConcern" placeholder="Add skin concern"></b-form-input>
+            <b-form-group label="Position:">
+                <b-form-input v-model="form.position" placeholder="Add position"></b-form-input>
+                <div>
+                    <b-dropdown id="dropdown-1" v-model="form.position" text="Position" variant="primary" class="m-md-2">
+                        <b-dropdown-item selected>Doctor</b-dropdown-item>
+                        <b-dropdown-item>Esthetician</b-dropdown-item>
+                    </b-dropdown>
+                    <b-form-input v-model="form.position" placeholder="Add position"></b-form-input>
+                </div>>
             </b-form-group>
         </b-form>
 
@@ -74,40 +82,47 @@ export default {
 
     data() {
         return {
-            users: [],
+            staffs: [],
             form: {
                 username: '',
                 fullname: '',
                 contact: '',
                 email: '',
                 address: '',
-                skinConcern: ''
-            }
+                position: ''
+            },
+            options: [{
+                    value: 'Doctor'
+                },
+                {
+                    value: 'Esthetician'
+                }
+            ]
         }
     },
 
     mounted() {
-        this.getUser()
+        this.getStaff()
     },
 
     methods: {
-        getUser() {
+        getStaff() {
             this.$http({
                     methods: 'get',
-                    url: '/users'
+                    url: '/staff'
                 })
                 .then(res => {
-                    this.users = res.data
+                    this.staffs = res.data
                 })
         },
 
         onClickAdd() {
-            this.$bvModal.show('modal-add-user')
+            this.$bvModal.show('modal-add-staff')
         },
 
         onHandleConfirm() {
             this.$http.post(
-                    '/users',
+                    '/staff',
                     this.form
                 )
                 .then(() => {
@@ -117,10 +132,10 @@ export default {
                         contact: '',
                         email: '',
                         address: '',
-                        skinConcern: ''
+                        position: ''
                     }
-                    this.$bvModal.hide('modal-add-user')
-                    this.getUsers()
+                    this.$bvModal.hide('modal-add-staff')
+                    this.getStaff()
                 })
         },
 
@@ -131,13 +146,13 @@ export default {
                 contact: '',
                 email: '',
                 address: '',
-                skinConcern: ''
+                position: ''
             }
-            this.$bvModal.hide('modal-add-user')
+            this.$bvModal.hide('modal-add-staff')
         },
 
         onHandleClickDelete(id) {
-            this.$http.delete(`/users/${id}`)
+            this.$http.delete(`/staff/${id}`)
                 .then(() => {
                     this.form = {
                         username: '',
@@ -145,20 +160,20 @@ export default {
                         contact: '',
                         email: '',
                         address: '',
-                        skinConcern: ''
+                        position: ''
                     }
-                    this.$bvModal.hide('modal-add-user')
-                    this.getUser()
+                    this.$bvModal.hide('modal-add-staff')
+                    this.getStaff()
                 })
         },
 
-        onHandleClickUpdate(user) {
-            this.form = user
-            this.$bvModal.show('modal-add-user')
+        onHandleClickUpdate(staff) {
+            this.form = staff
+            this.$bvModal.show('modal-add-staff')
         },
 
         onHandleUpdate() {
-            this.$http.patch(`/users/${this.form.id}`, this.form)
+            this.$http.patch(`/staff/${this.form.id}`, this.form)
                 .then(() => {
                     this.form = {
                         username: '',
@@ -166,10 +181,10 @@ export default {
                         contact: '',
                         email: '',
                         address: '',
-                        skinConcern: ''
+                        position: ''
                     }
-                    this.$bvModal.hide('modal-add-user')
-                    this.getUser()
+                    this.$bvModal.hide('modal-add-staff')
+                    this.getStaff()
                 })
         }
 

@@ -3,59 +3,33 @@
     <div class="row justify-content-md-center">
         <div class="col-4 p-5">
             <div class="row justify-content-between align-items-center">
-                <h3 class="mb-0">Booking history</h3><br><br>
-
-                <b-button variant="success" @click="onClickAdd">Book Appointment</b-button>
+                <h3 class="mb-0">List of booking</h3><br><br>
             </div>
         </div>
     </div>
-    <div>
-        <b-container fluid>
-            <b-row>
-                <b-col>Booking ID</b-col>
-                <b-col>Date</b-col>
-                <b-col>Time</b-col>
-                <b-col>Service</b-col>
-                <b-col>Assign To</b-col>
-                <b-col>Status</b-col>
-                <b-col></b-col>
-                <b-col></b-col>
-            </b-row>
-            <b-row v-for="(book) in bookings" :key="book.id" class="col-12 mb-3">
-                <b-col>{{book.id}}</b-col>
-                <b-col>{{book.date}}</b-col>
-                <b-col>{{book.time}}</b-col>
-                <b-col>{{book.service}}</b-col>
-                <b-col>{{book.assignTo}}</b-col>
-                <b-col>{{book.status}}</b-col>
-                <b-col>
-                    <b-btn variant="danger" @click="onHandleClickDelete(book.id)">Delete</b-btn>
-                </b-col>
-                <b-col>
-                    <b-btn variant="info" @click="onHandleClickUpdate(book)">Update</b-btn>
-                </b-col>
-            </b-row>
-        </b-container>
+    <div class="row">
+        <b-card v-for="(book) in bookings" :key="book.id" :service="book.service" class="col-12 mb-3">
+            {{book.id}}
+            {{book.date}}
+            {{book.time}}
+            {{book.service}}
+            {{book.assignTo}}
+            {{book.status}}
+
+            <b-btn variant="danger" @click="onHandleClickDelete(book.id)">Delete</b-btn>
+            <b-btn variant="info" @click="onHandleClickUpdate(book)">Update Status</b-btn>
+
+        </b-card>
     </div>
 
     <b-modal id="modal-add-booking" title="Add Booking" @hidden="onHandleCancel">
         <b-form>
-            <b-form-group label="Date:">
-                <b-form-input v-model="form.date" placeholder="Add date"></b-form-input>
+            <b-form-group label="Assign To:">
+                <b-form-input v-model="form.assignTo" placeholder="Assign To"></b-form-input>
             </b-form-group>
-            <div>
-                <label for="example-datepicker">Date:</label>
-                <b-form-datepicker id="example-datepicker" v-model="form.date" class="mb-2"></b-form-datepicker>
-                <p>Value: '{{ value }}'</p>
-            </div>
 
-            <div>
-                <label for="timepicker-valid">Time:</label>
-                <b-form-timepicker id="datepicker-valid" :state="true" class="mb-2" v-model="form.time" locale="en"></b-form-timepicker>
-            </div>
-
-            <b-form-group label="Service:">
-                <b-form-input v-model="form.service" placeholder="Add service"></b-form-input>
+            <b-form-group label="Status:">
+                <b-form-input v-model="form.status" placeholder="Update Status"></b-form-input>
             </b-form-group>
         </b-form>
 
