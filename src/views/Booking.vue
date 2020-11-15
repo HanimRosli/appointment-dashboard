@@ -22,14 +22,14 @@
         </b-card>
     </div>
 
-    <b-modal id="modal-add-booking" title="Add Booking" @hidden="onHandleCancel">
+    <b-modal id="modal-add-booking" title="Update Status" @hidden="onHandleCancel">
         <b-form>
             <b-form-group label="Assign To:">
-                <b-form-input v-model="form.assignTo" placeholder="Assign To"></b-form-input>
+                <b-form-select v-model="form.assignTo" :options="staffs" value-field="fullname" text-field="fullname"></b-form-select>
             </b-form-group>
 
             <b-form-group label="Status:">
-                <b-form-input v-model="form.status" placeholder="Update Status"></b-form-input>
+                <b-form-select v-model="form.status" :options="status"></b-form-select>
             </b-form-group>
         </b-form>
 
@@ -59,6 +59,12 @@ export default {
     data() {
         return {
             bookings: [],
+            staffs: [],
+            status: [
+                'Pending',
+                'Approved',
+                'Cancelled'
+            ],
             form: {
                 date: '',
                 time: '',
@@ -70,7 +76,8 @@ export default {
     },
 
     mounted() {
-        this.getBooking()
+        this.getBooking(),
+            this.getAllStaffs()
     },
 
     methods: {
@@ -81,6 +88,16 @@ export default {
                 })
                 .then(res => {
                     this.bookings = res.data
+                })
+        },
+
+        getAllStaffs() {
+            this.$http({
+                    methods: 'get',
+                    url: '/staff'
+                })
+                .then(res => {
+                    this.staffs = res.data
                 })
         },
 

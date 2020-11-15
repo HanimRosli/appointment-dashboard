@@ -46,14 +46,7 @@
             </b-form-group>
 
             <b-form-group label="Position:">
-                <b-form-input v-model="form.position" placeholder="Add position"></b-form-input>
-                <div>
-                    <b-dropdown id="dropdown-1" v-model="form.position" text="Position" variant="primary" class="m-md-2">
-                        <b-dropdown-item selected>Doctor</b-dropdown-item>
-                        <b-dropdown-item>Esthetician</b-dropdown-item>
-                    </b-dropdown>
-                    <b-form-input v-model="form.position" placeholder="Add position"></b-form-input>
-                </div>>
+                <b-form-select v-model="form.position" :options="position" value-field="position" text-field="position">-- Select position --</b-form-select>
             </b-form-group>
         </b-form>
 
@@ -83,6 +76,10 @@ export default {
     data() {
         return {
             staffs: [],
+            position: [
+                'Doctor',
+                'Esthetician'
+            ],
             form: {
                 username: '',
                 fullname: '',

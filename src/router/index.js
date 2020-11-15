@@ -48,6 +48,18 @@ const routes = [
     name: "Booking",
     component: () =>
       import("../views/Booking.vue")
+  },
+  {
+    path: "/first",
+    name: "First",
+    component: () =>
+      import("../views/First.vue")
+  },
+  {
+    path: "/adminHomepage",
+    name: "Admin Homepage",
+    component: () =>
+      import("../views/adminHomepage.vue")
   }
 ];
 
