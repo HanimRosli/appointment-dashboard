@@ -3,55 +3,33 @@
     <div class="row justify-content-md-center">
         <div class="col-4 p-5">
             <div class="row justify-content-between align-items-center">
-                <h3 class="mb-0">Booking history</h3><br /><br />
-
-                <b-button variant="success" @click="onClickAdd">Book Appointment</b-button>
+                <h3 class="mb-0">List of booking</h3><br><br>
             </div>
         </div>
     </div>
-    <div>
-        <b-container fluid>
-            <b-row>
-                <b-col>Booking ID</b-col>
-                <b-col>Date</b-col>
-                <b-col>Time</b-col>
-                <b-col>Service</b-col>
-                <b-col>Assign To</b-col>
-                <b-col>Status</b-col>
-                <b-col></b-col>
-                <b-col></b-col>
-            </b-row>
-            <b-row v-for="(book) in bookings" :key="book.id" class="col-12 mb-3">
-                <b-col>{{book.id}}</b-col>
-                <b-col>{{book.date}}</b-col>
-                <b-col>{{book.time}}</b-col>
-                <b-col>{{book.service}}</b-col>
-                <b-col>{{book.assignTo}}</b-col>
-                <b-col>{{book.status}}</b-col>
-                <b-col>
-                    <b-btn variant="danger" @click="onHandleClickDelete(book.id)">Delete</b-btn>
-                </b-col>
-                <b-col>
-                    <b-btn variant="info" @click="onHandleClickUpdate(book)">Update</b-btn>
-                </b-col>
-            </b-row>
-        </b-container>
+    <div class="row">
+        <b-card v-for="(book) in bookings" :key="book.id" :service="book.service" class="col-12 mb-3">
+            {{book.id}}
+            {{book.date}}
+            {{book.time}}
+            {{book.service}}
+            {{book.assignTo}}
+            {{book.status}}
+
+            <b-btn variant="danger" @click="onHandleClickDelete(book.id)">Delete</b-btn>
+            <b-btn variant="info" @click="onHandleClickUpdate(book)">Update Status</b-btn>
+
+        </b-card>
     </div>
 
-    <b-modal id="modal-add-booking" title="Add Booking" @hidden="onHandleCancel">
+    <b-modal id="modal-add-booking" title="Update Status" @hidden="onHandleCancel">
         <b-form>
-            <div>
-                <label for="example-datepicker">Date:</label>
-                <b-form-datepicker id="example-datepicker" v-model="form.date" class="mb-2"></b-form-datepicker>
-            </div>
+            <b-form-group label="Assign To:">
+                <b-form-select v-model="form.assignTo" :options="staffs" value-field="fullname" text-field="fullname"></b-form-select>
+            </b-form-group>
 
-            <div>
-                <label for="timepicker-valid">Time:</label>
-                <b-form-timepicker id="datepicker-valid" :state="true" class="mb-2" v-model="form.time" locale="en"></b-form-timepicker>
-            </div>
-
-            <b-form-group label="Service:">
-                <b-form-select v-model="form.service" :options="services" value-field="serviceName" text-field="serviceName">-- Add service name --</b-form-select>
+            <b-form-group label="Status:">
+                <b-form-select v-model="form.status" :options="status"></b-form-select>
             </b-form-group>
         </b-form>
 
@@ -80,7 +58,12 @@ export default {
     data() {
         return {
             bookings: [],
-            services: [],
+            staffs: [],
+            status: [
+                'Pending',
+                'Approved',
+                'Cancelled'
+            ],
             form: {
                 date: '',
                 time: '',
@@ -92,7 +75,7 @@ export default {
     },
     mounted() {
         this.getBooking(),
-            this.getAllServices()
+            this.getAllStaffs()
     },
     methods: {
         getBooking() {
@@ -104,13 +87,13 @@ export default {
                     this.bookings = res.data
                 })
         },
-        getAllServices() {
+        getAllStaffs() {
             this.$http({
                     methods: 'get',
-                    url: '/service'
+                    url: '/staff'
                 })
                 .then(res => {
-                    this.services = res.data
+                    this.staffs = res.data
                 })
         },
         onClickAdd() {

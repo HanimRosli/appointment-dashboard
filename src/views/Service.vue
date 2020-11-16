@@ -1,81 +1,129 @@
 <template>
-<div class="content">
-    <div>
-        <b-card no-body>
-            <b-tabs pills card vertical nav-wrapper-class="w-60">
-                <b-tab title="Service" active>
-                    <b-card-text>
-                        <div class="row justify-content-md-center">
-                            <div class="col-8 p-5">
-                                <div class="row justify-content-between align-items-center">
-                                    <h4 class="mb-0">Service for appointment</h4>
-                                    <b-button variant="primary" @click="onClickAdd">Create</b-button>
-                                </div>
-                            </div>
-                        </div>
-                    </b-card-text>
-                </b-tab>
-                <div class="row">
-                    <b-table v-for="(service) in services" striped hover :items="services" :fields="fields"></b-table>
-                </div>
-                <b-tab title="Staff">
-                    <b-card-text>Tab contents 2</b-card-text>
-                </b-tab>
-                <b-tab title="User">
-                    <b-card-text>Tab contents 3</b-card-text>
-                </b-tab>
+<div>
+    <div class="row justify-content-md-center">
+        <div class="col-4 p-5">
+            <div class="row justify-content-between align-items-center">
+                <h3 class="mb-0">List of Services</h3>
+                <b-button variant="success" @click="onClickAdd">Add Service</b-button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <b-card v-for="(service) in services" :key="service.id" class="col-12 mb-3">
+            {{service.category}}
+            {{service.serviceName}}
 
-            </b-tabs>
+            <b-btn variant="danger" @click="onHandleClickDelete(service.id)">Delete</b-btn>
+            <b-btn variant="info" @click="onHandleClickUpdate(service)">Update</b-btn>
+
         </b-card>
     </div>
+
+    <b-modal id="modal-add-service" title="Add Service" @hidden="onHandleCancel">
+        <b-form>
+            <b-form-group label="Category:">
+                <b-form-input v-model="form.category" placeholder="Add category"></b-form-input>
+            </b-form-group>
+
+            <b-form-group label="Service Name:">
+                <b-form-input v-model="form.serviceName" placeholder="Add service name"></b-form-input>
+            </b-form-group>
+        </b-form>
+
+        <template v-slot:modal-footer>
+            <div class="w-100">
+                <b-button @click="onHandleCancel">Cancel</b-button>
+
+                <b-button variant="primary" size="sm" class="float-right" @click="onHandleUpdate" v-if="form.id">
+                    Update
+                </b-button>
+
+                <b-button variant="primary" size="sm" class="float-right" @click="onHandleConfirm" v-else>
+                    Confirm
+                </b-button>
+            </div>
+        </template>
+
+    </b-modal>
+
 </div>
 </template>
 
 <script>
-/* eslint-disable */
 export default {
-    name: "Service",
+    name: "Home",
     data() {
         return {
             services: [],
-            fields: [{
-                    key: 'servicename',
-                    label: 'Service Name'
-                },
-                {
-                    key: 'category',
-                    label: 'Category'
-                },
-                {
-                    key: 'description',
-                    label: 'Description'
-                },
-                {
-                    key: 'procedure',
-                    label: 'Procedure'
-                },
-                {
-                    key: 'comment',
-                    label: 'Comment'
-                }
-            ]
+            form: {
+                category: '',
+                serviceName: ''
+            }
         }
-
     },
     mounted() {
-        this.getAllServices()
+        this.getService()
     },
     methods: {
-        this.$http({
-            method: 'get',
-            url: '/service'
-        })
-        .then(res => {
-            this.services = res.data
-        })
+        getService() {
+            this.$http({
+                    methods: 'get',
+                    url: '/service'
+                })
+                .then(res => {
+                    this.services = res.data
+                })
+        },
+        onClickAdd() {
+            this.$bvModal.show('modal-add-service')
+        },
+        onHandleConfirm() {
+            this.$http.post(
+                    '/service',
+                    this.form
+                )
+                .then(() => {
+                    this.form = {
+                        category: '',
+                        serviceName: ''
+                    }
+                    this.$bvModal.hide('modal-add-service')
+                    this.getService()
+                })
+        },
+        OnHandleCancel() {
+            this.form = {
+                category: '',
+                serviceName: ''
+            }
+            this.$bvModal.hide('modal-add-service')
+        },
+        onHandleClickDelete(id) {
+            this.$http.delete(`/service/${id}`)
+                .then(() => {
+                    this.form = {
+                        category: '',
+                        serviceName: ''
+                    }
+                    this.$bvModal.hide('modal-add-service')
+                    this.getService()
+                })
+        },
+        onHandleClickUpdate(service) {
+            this.form = service
+            this.$bvModal.show('modal-add-service')
+        },
+        onHandleUpdate() {
+            this.$http.patch(`/service/${this.form.id}`, this.form)
+                .then(() => {
+                    this.form = {
+                        category: '',
+                        serviceName: ''
+                    }
+                    this.$bvModal.hide('modal-add-service')
+                    this.getService()
+                })
+        }
     },
-
 };
 </script>
-
-<style scoped></style>
