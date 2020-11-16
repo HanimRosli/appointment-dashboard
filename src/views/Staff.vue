@@ -1,27 +1,41 @@
 <template>
 <div>
     <div class="row justify-content-md-center">
-        <div class="col-4 p-5">
+        <div class="col-9 p-5">
             <div class="row justify-content-between align-items-center">
                 <h3 class="mb-0">List of Staffs</h3>
                 <b-button variant="success" @click="onClickAdd">Add Staff</b-button>
             </div>
         </div>
     </div>
-    <div class="row">
-        <b-card v-for="(staff) in staffs" :key="staff.id" class="col-12 mb-3">
-            {{staff.username}}
-            {{staff.fullname}}
-            {{staff.email}}
-            {{staff.contact}}
-            {{staff.address}}
-            {{staff.position}}
-
-            <b-btn variant="danger" @click="onHandleClickDelete(staff.id)">Delete</b-btn>
-            <b-btn variant="info" @click="onHandleClickUpdate(staff)">Update</b-btn>
-
-        </b-card>
-    </div>
+     <b-container class="bv-example-row">
+            <b-row class="col-12 mb-3">
+                <b-col><b>Username</b></b-col>
+                <b-col><b>Full Name</b></b-col>
+                <b-col><b>Email</b></b-col>
+                <b-col><b>Contact</b></b-col>
+                <b-col><b>Address</b></b-col>
+                <b-col><b>Position</b></b-col>
+                <b-col><b>Edit</b></b-col>
+                <b-col><b>Delete</b></b-col> 
+            </b-row>
+    
+        <b-card v-for="(staff) in staffs" :key="staff.id" class="col-14 mb-3">
+        <b-container class="bv-example-row">
+            <b-row class="col-14 mb-3">
+            <b-col>{{staff.username}}</b-col>
+           <b-col> {{staff.fullname}}</b-col>
+            <b-col>{{staff.email}}</b-col>
+            <b-col>{{staff.contact}}</b-col>
+            <b-col>{{staff.address}}</b-col>
+            <b-col>{{staff.position}}</b-col>
+            <b-col><b-btn variant="info" @click="onHandleClickUpdate(staff)">Update</b-btn></b-col>
+            <b-col><b-btn variant="danger" @click="onHandleClickDelete(staff.id)">Delete</b-btn></b-col>
+           </b-row>
+    </b-container>
+        </b-card>  
+     </b-container>
+    
 
     <b-modal id="modal-add-staff" title="Add Staff" @hidden="onHandleCancel">
         <b-form>

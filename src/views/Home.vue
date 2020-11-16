@@ -15,7 +15,7 @@
             {{user.email}}
             {{user.contact}}
             {{user.address}}
-            {{user.skinConcern}}
+            {{user.skin_concern}}
 
             <b-btn variant="danger" @click="onHandleClickDelete(user.id)">Delete</b-btn>
             <b-btn variant="info" @click="onHandleClickUpdate(user)">Update</b-btn>
@@ -46,7 +46,7 @@
             </b-form-group>
 
             <b-form-group label="Skin Concern:">
-                <b-form-input v-model="form.skinConcern" placeholder="Add skin concern"></b-form-input>
+                <b-form-input v-model="form.skin_concern" placeholder="Add skin concern"></b-form-input>
             </b-form-group>
         </b-form>
 
@@ -81,7 +81,7 @@ export default {
                 contact: '',
                 email: '',
                 address: '',
-                skinConcern: ''
+                skin_concern: ''
             }
         }
     },
@@ -113,7 +113,7 @@ export default {
                         contact: '',
                         email: '',
                         address: '',
-                        skinConcern: ''
+                        skin_concern: ''
                     }
                     this.$bvModal.hide('modal-add-user')
                     this.getUsers()
@@ -126,7 +126,7 @@ export default {
                 contact: '',
                 email: '',
                 address: '',
-                skinConcern: ''
+                skin_concern: ''
             }
             this.$bvModal.hide('modal-add-user')
         },
@@ -139,7 +139,7 @@ export default {
                         contact: '',
                         email: '',
                         address: '',
-                        skinConcern: ''
+                        skin_concern: ''
                     }
                     this.$bvModal.hide('modal-add-user')
                     this.getUser()
@@ -158,7 +158,7 @@ export default {
                         contact: '',
                         email: '',
                         address: '',
-                        skinConcern: ''
+                        skin_concern: ''
                     }
                     this.$bvModal.hide('modal-add-user')
                     this.getUser()

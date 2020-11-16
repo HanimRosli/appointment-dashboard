@@ -1,23 +1,36 @@
 <template>
 <div>
     <div class="row justify-content-md-center">
-        <div class="col-4 p-5">
+        <div class="col-9 p-5">
             <div class="row justify-content-between align-items-center">
                 <h3 class="mb-0">List of Services</h3>
                 <b-button variant="success" @click="onClickAdd">Add Service</b-button>
             </div>
         </div>
     </div>
-    <div class="row">
-        <b-card v-for="(service) in services" :key="service.id" class="col-12 mb-3">
-            {{service.category}}
-            {{service.serviceName}}
-
-            <b-btn variant="danger" @click="onHandleClickDelete(service.id)">Delete</b-btn>
-            <b-btn variant="info" @click="onHandleClickUpdate(service)">Update</b-btn>
-
+    <b-container class="bv-example-row">
+            <b-row class="col-12 mb-3">
+                <b-col><b>Category</b></b-col>
+                <b-col><b>Service Name</b></b-col>
+                <b-col><b>Edit</b></b-col>
+                <b-col><b>Delete</b></b-col>
+                
+            </b-row>
+    
+        <b-card v-for="(service) in services" :key="service.id" class="col-14 mb-3">
+        <b-container class="bv-example-row">
+    <b-row class="col-14 mb-3">
+           <b-col> {{service.category}} </b-col>
+            <b-col> {{service.serviceName}} </b-col>
+             <b-col><b-btn variant="info" @click="onHandleClickUpdate(service)">Update</b-btn></b-col>
+           <b-col> <b-btn variant="danger" @click="onHandleClickDelete(service.id)">Delete</b-btn></b-col>
+           
+    </b-row>
+    </b-container>
         </b-card>
-    </div>
+    
+    
+    </b-container>
 
     <b-modal id="modal-add-service" title="Add Service" @hidden="onHandleCancel">
         <b-form>

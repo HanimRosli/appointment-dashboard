@@ -41,8 +41,8 @@
                             Cancel
                         </b-button>
 
-                        <b-button variant="success" size="sm" class="float-right" @click="onClickAdd">Register
-                            <!-- <router-link to="/homepage">Register</router-link> -->
+                        <b-button variant="success" size="sm" class="float-right" @click="onClickAdd">
+                            <router-link to="/homepage">Register</router-link>
                         </b-button>
                     </div>
                 </template>
