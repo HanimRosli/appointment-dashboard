@@ -15,16 +15,8 @@
                     </b-nav-form>
 
                     <b-navbar-nav>
-                        <b-nav-item href="#">Appoinment</b-nav-item>
+                        <b-nav-item href="/register">Appoinment</b-nav-item>
                     </b-navbar-nav>
-                    <b-nav-item-dropdown right>
-                        <!-- Using 'button-content' slot -->
-                        <template #button-content>
-                            <em>User</em>
-                        </template>
-                        <b-dropdown-item href="#">Profile</b-dropdown-item>
-                        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-                    </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>

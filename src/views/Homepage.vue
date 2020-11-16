@@ -1,8 +1,9 @@
 <template>
 <div>
     <div class="row justify-content-md-center">
-        <div class="col-4 p-5">
+        <div class="col-10 p-5">
             <div class="row justify-content-between align-items-center">
+
                 <h3 class="mb-0">Booking history</h3><br /><br />
 
                 <b-button variant="success" @click="onClickAdd">Book Appointment</b-button>
@@ -10,16 +11,17 @@
         </div>
     </div>
     <div>
-        <b-container fluid>
-            <b-row>
+
+        <b-container class="bv-example-row">
+            <b-row class="col-12 mb-3">
                 <b-col>Booking ID</b-col>
                 <b-col>Date</b-col>
                 <b-col>Time</b-col>
                 <b-col>Service</b-col>
                 <b-col>Assign To</b-col>
                 <b-col>Status</b-col>
-                <b-col></b-col>
-                <b-col></b-col>
+                <b-col>Edit</b-col>
+                <b-col>Delete</b-col>
             </b-row>
             <b-row v-for="(book) in bookings" :key="book.id" class="col-12 mb-3">
                 <b-col>{{book.id}}</b-col>

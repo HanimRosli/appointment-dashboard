@@ -22,27 +22,44 @@ const routes = [
   {
     path: "/register",
     name: "Register",
-    component: () => import("../views/Register.vue")
+    component: () =>
+      import("../views/Register.vue")
   },
   {
     path: "/homepage",
     name: "Homepage",
-    component: () => import("../views/Homepage.vue")
-  },
-  {
-    path: "/user",
-    name: "User",
-    component: () => import("../views/User.vue")
+    component: () =>
+      import("../views/Homepage.vue")
   },
   {
     path: "/staff",
     name: "Staff",
-    component: () => import("../views/Staff.vue")
+    component: () =>
+      import("../views/Staff.vue")
   },
   {
     path: "/service",
     name: "Service",
-    component: () => import("../views/Service.vue")
+    component: () =>
+      import("../views/Service.vue")
+  },
+  {
+    path: "/booking",
+    name: "Booking",
+    component: () =>
+      import("../views/Booking.vue")
+  },
+  {
+    path: "/first",
+    name: "First",
+    component: () =>
+      import("../views/First.vue")
+  },
+  {
+    path: "/adminHomepage",
+    name: "Admin Homepage",
+    component: () =>
+      import("../views/adminHomepage.vue")
   }
 ];
 

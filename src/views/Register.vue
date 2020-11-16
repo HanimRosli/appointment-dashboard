@@ -1,47 +1,54 @@
 <template>
 <div class="register">
-    <h1>Welcome to Dr Ko self-appointment system</h1>
-    <h4>Please register here</h4>
-
-    <b-form>
-        <b-form-group label="Username:">
-            <b-form-input v-model="form.username" placeholder="Enter Username"></b-form-input>
-        </b-form-group>
-
-        <b-form-group label="Fullname">
-            <b-form-input v-model="form.fullname" placeholder="Enter Fullname"></b-form-input>
-        </b-form-group>
-
-        <b-form-group label="Contact">
-            <b-form-input v-model="form.contact" placeholder="Enter Contact Number"></b-form-input>
-        </b-form-group>
-
-        <b-form-group label="Email">
-            <b-form-input v-model="form.email" placeholder="Enter Email Address"></b-form-input>
-        </b-form-group>
-
-        <b-form-group label="Address">
-            <b-form-textarea id="textarea" v-model="form.address" placeholder="Enter Address" rows="3" max-rows="6"></b-form-textarea>
-        </b-form-group>
-
-        <b-form-group label="Skin Concern">
-            <b-form-input v-model="form.skin_concern" placeholder="Enter Your Skin Concern"></b-form-input>
-        </b-form-group>
-    </b-form>
-
-    <template>
-        <div class="w-100">
-
-            <b-button variant="primary" size="sm" class="float-left" @click="OnHandleCancel">
-                Cancel
-            </b-button>
-
-            <b-button variant="success" size="sm" class="float-right" @click="onClickAdd">
-                <router-link to="/homepage">Register</router-link>
-            </b-button>
+    <div class="row justify-content-md-center">
+        <div class="col-8 p-3">
+            <h2><strong>Welcome to Dr Ko self-appointment system</strong></h2>
         </div>
-    </template>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-8 p-5">
+            <b-card title="Register" sub-title="Please register to proceed request apointment"><br>
+                <b-form>
+                    <b-form-group label="Username:">
+                        <b-form-input v-model="form.username" placeholder="Enter Username"></b-form-input>
+                    </b-form-group>
 
+                    <b-form-group label="Fullname">
+                        <b-form-input v-model="form.fullname" placeholder="Enter Fullname"></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label="Contact">
+                        <b-form-input v-model="form.contact" placeholder="Enter Contact Number"></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label="Email">
+                        <b-form-input v-model="form.email" placeholder="Enter Email Address"></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label="Address">
+                        <b-form-textarea id="textarea" v-model="form.address" placeholder="Enter Address" rows="3" max-rows="6"></b-form-textarea>
+                    </b-form-group>
+
+                    <b-form-group label="Skin Concern">
+                        <b-form-input v-model="form.skin_concern" placeholder="Enter Your Skin Concern"></b-form-input>
+                    </b-form-group>
+                </b-form>
+
+                <template>
+                    <div class="w-100">
+
+                        <b-button variant="primary" size="sm" class="float-left" @click="OnHandleCancel">
+                            Cancel
+                        </b-button>
+
+                        <b-button variant="success" size="sm" class="float-right" @click="onClickAdd">Register
+                            <!-- <router-link to="/homepage">Register</router-link> -->
+                        </b-button>
+                    </div>
+                </template>
+            </b-card>
+        </div>
+    </div>
 </div>
 </template>
 

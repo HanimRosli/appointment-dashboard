@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="row justify-content-md-center">
-        <div class="col-4 p-5">
+        <div class="col-10 p-5">
             <div class="row justify-content-between align-items-center">
                 <h3 class="mb-0">List of booking</h3><br><br>
             </div>
